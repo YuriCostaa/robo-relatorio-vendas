@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portal de Vendas (demonstração) · Relatórios</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<main class="card">
+  <h1>Relatórios</h1>
+  <p class="sub">Escolha o mês e exporte a planilha de vendas.</p>
+  <label>Mês
+    <select id="mes">
+      <option value="2026-09">Setembro/2026</option>
+      <option value="2026-10">Outubro/2026</option>
+      <option value="2026-11" selected>Novembro/2026</option>
+    </select>
+  </label>
+  <button id="exportar">Exportar planilha</button>
+  <p id="status" class="sub" aria-live="polite"></p>
+  <a href="index.html" id="sair">Sair</a>
+</main>
+<script>
+if (sessionStorage.getItem("sessao") !== "ativa") location.replace("index.html");
+document.getElementById("exportar").addEventListener("click", () => {
+  const mes = document.getElementById("mes").value;
+  const status = document.getElementById("status");
+  status.textContent = "Gerando arquivo...";
+  setTimeout(() => { // simula o tempo de geração no servidor
+    const a = document.createElement("a");
+    a.href = `arquivos/vendas_${mes}.xlsx`;
+    a.download = `vendas_${mes}.xlsx`;
+    document.body.appendChild(a); a.click(); a.remove();
+    status.textContent = "Download iniciado.";
+  }, 800);
+});
+document.getElementById("sair").addEventListener("click", () => sessionStorage.clear());
+</script>
+</body>
+</html>

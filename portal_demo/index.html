@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portal de Vendas (demonstração) · Entrar</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<main class="card">
+  <h1>Portal de Vendas</h1>
+  <p class="sub">Ambiente de demonstração. Usuário <code>demo</code>, senha <code>demo123</code>.</p>
+  <form id="login">
+    <label>Usuário <input id="usuario" name="usuario" autocomplete="username" required></label>
+    <label>Senha <input id="senha" name="senha" type="password" autocomplete="current-password" required></label>
+    <button type="submit" id="entrar">Entrar</button>
+    <p id="erro" class="erro" hidden>Usuário ou senha inválidos.</p>
+  </form>
+</main>
+<script>
+document.getElementById("login").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const ok = document.getElementById("usuario").value === "demo" && document.getElementById("senha").value === "demo123";
+  if (!ok) { document.getElementById("erro").hidden = false; return; }
+  sessionStorage.setItem("sessao", "ativa");
+  setTimeout(() => { location.href = "painel.html"; }, 300); // simula a demora do servidor
+});
+</script>
+</body>
+</html>
